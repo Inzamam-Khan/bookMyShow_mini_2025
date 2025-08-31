@@ -3,20 +3,29 @@
         <img src="assets/svg/bookmyshow-logo-vector.svg" height="60px" alt="">
     </div>
 
-    @if (!openSignuForm) {
+    @if (!openSignupForm) {
     <form [formGroup]="userLogin">
         <div class="mb-3">
             <label class="form-label">Username</label>
             <input type="text" class="form-control" formControlName="username" placeholder="Enter your username">
+<<<<<<< HEAD
             <small class="text-danger" *ngIf="userLogin.get('username')?.touched && userLogin.get('username')?.invalid">
                 Username is required
             </small>
+=======
+            @if(userLogin.get('username')?.touched && userLogin.get('username')?.invalid){
+            <small class="text-danger">
+                Username is required
+            </small>
+            }
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
         </div>
 
         <div class="mb-3 position-relative">
             <label class="form-label">Password</label>
             <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
                 placeholder="Enter your password">
+<<<<<<< HEAD
 
             <small class="text-danger"
                 *ngIf="userLogin.get('password')?.touched && userLogin.get('password')?.hasError('required')">
@@ -27,6 +36,20 @@
             </small>
 
             <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"
+=======
+            @if(userLogin.get('password')?.touched && userLogin.get('password')?.hasError('required'))
+            { <small class="text-danger">
+                Password is required
+            </small>
+            }
+            @if(userLogin.get('password')?.hasError('minlength'))
+            {
+            <small class="text-danger">
+                Password must be at least 6 characters
+            </small>
+            }
+            <i class="fa" ngClass="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
                 id="togglePassword">
             </i>
         </div>
@@ -35,16 +58,22 @@
         <button type="button" class="btn btn-info text-white col-12 mb-2" [disabled]="userLogin.invalid"
             (click)="onloginSubmit()">Login</button>
 
+<<<<<<< HEAD
         <p class="text-center">Don't have an account?
             <a href="javascript:void(0)" (click)="openFormSignup()">Signup</a>
+=======
+        <p class="text-center changeRouteFormPage">Don't have an account?
+            <a (click)="openFormSignup()">Signup</a>
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
         </p>
     </form>
     }
-    @if (openSignuForm) {
+    @if (openSignupForm) {
     <form [formGroup]="userSignUp">
         <div class="mb-3">
             <label class="form-label">Full Name</label>
             <input type="text" class="form-control" formControlName="name" placeholder="Enter full name">
+<<<<<<< HEAD
             <small class="text-danger" *ngIf="userSignUp.get('name')?.touched && userSignUp.get('name')?.invalid">
                 Name is required
             </small>
@@ -69,8 +98,18 @@
             <small class="text-danger" *ngIf="userSignUp.get('email')?.hasError('email')">
                 Invalid email format
             </small>
+=======
+
+            @if(userSignUp.get('name')?.touched && userSignUp.get('name')?.invalid){
+            <small class="text-danger">
+                Name is required
+            </small>
+            }
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
         </div>
+
         <div class="mb-3">
+<<<<<<< HEAD
             <label class="form-label" for="roleName" name="">Role</label>
             <select class="form-control" formControlName="roleName" id="roleName" name="roleName">
                 <option selected>Select Role....</option>
@@ -96,12 +135,63 @@
             <small class="text-danger" *ngIf="userSignUp.get('phoneNumber')?.hasError('pattern')">
                 Phone number must be exactly 10 digits
             </small>
+=======
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" formControlName="username" placeholder="Choose a username">
+            @if(userSignUp.get('username')?.touched && userSignUp.get('username')?.invalid){
+            <small class="text-danger">
+                Username is required
+            </small>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter your email">
+            @if(userSignUp.get('email')?.touched && userSignUp.get('email')?.hasError('required')){
+            <small class="text-danger">
+                Email is required
+            </small>
+            }
+            @if(userSignUp.get('email')?.hasError('email')){
+            <small class="text-danger">
+                Invalid email format
+            </small>
+            }
+        </div>
+        <!-- <div class="mb-3">
+            <label class="form-label" for="roleName" name="">Role</label>
+            <input type="text" class="form-control" id="roleName" name="roleName" formControlName="roleName"
+                placeholder="Enter roleName" value="USER">
+
+            @if(userSignUp.get('roleName')?.touched && userSignUp.get('roleName')?.hasError('required')){
+            <small class="text-danger">
+                Role is required
+            </small>
+            }
+        </div> -->
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-control" formControlName="phoneNumber"
+                placeholder="Enter 10-digit phone number">
+            @if(userSignUp.get('phoneNumber')?.touched && userSignUp.get('phoneNumber')?.hasError('required')){
+            <small class="text-danger">
+                Phone number is required
+            </small>
+            }
+            @if(userSignUp.get('phoneNumber')?.hasError('pattern')){
+            <small class="text-danger">
+                Phone number must be exactly 10 digits
+            </small>
+            }
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
         </div>
 
         <div class="mb-3 position-relative">
             <label class="form-label">Password</label>
             <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
                 placeholder="Enter your password">
+<<<<<<< HEAD
 
             <small class="text-danger"
                 *ngIf="userLogin.get('password')?.touched && userLogin.get('password')?.hasError('required')">
@@ -111,10 +201,24 @@
                 Password must be at least 6 characters
             </small>
 
+=======
+            @if(userLogin.get('password')?.touched && userLogin.get('password')?.hasError('required')){
+            <small class="text-danger">
+                Password is required
+            </small>
+            }
+            @if(userLogin.get('password')?.hasError('minlength')){
+            <small class="text-danger">
+                Password must be at least 6 characters
+            </small>
+
+            }
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
             <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"
                 id="togglePassword">
             </i>
         </div>
+<<<<<<< HEAD
 
 
         <button type="button" class="btn btn-info text-white col-12 mb-2" [disabled]="userSignUp.invalid"
@@ -122,8 +226,15 @@
 
         <p class="text-center">Already have an account?
             <a href="javascript:void(0)" (click)="openFormSignup()">Signin</a>
+=======
+        <button type="button" class="btn btn-info text-white col-12 mb-2" [disabled]="userSignUp.invalid"
+            (click)="onSignupSubmit()">Register</button>
+
+        <p class="text-center changeRouteFormPage">Already have an account?
+
+            <a (click)="openFormSignup()">Login</a>
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
         </p>
     </form>
     }
-
 </div>

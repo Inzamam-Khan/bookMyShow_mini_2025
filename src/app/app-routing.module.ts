@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserProfileModule } from './modules/user-proile/user-profile.module';
-import { ErrorpageComponent } from './shared/components/erorpage/errorpage.component';
 import { MoviesDetailsComponent } from './shared/components/movies-details/movies-details.component';
 import { ListYourShowModule } from './modules/list-your-show/list-your-show.module';
+<<<<<<< HEAD
 import { IExploreListComponent } from './shared/components/i-explore-list/i-explore-list.component';
 import { BuyTicketsComponent } from './shared/components/buy-tickets/buy-tickets.component';
+=======
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
+
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 
 const routes: Routes = [
   {
@@ -29,7 +33,7 @@ const routes: Routes = [
       import('./modules/list-your-show/list-your-show.module').then((m) => ListYourShowModule),
   },
   {
-    path: 'movies/:city/:name/:id', component: MoviesDetailsComponent
+    path: 'movies/:city/:id', component: MoviesDetailsComponent
 
 
   },
@@ -40,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: ErrorpageComponent
+    component: ErrorPageComponent
   }
 ];
 

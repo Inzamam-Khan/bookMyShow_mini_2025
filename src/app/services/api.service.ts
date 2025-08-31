@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
+<<<<<<< HEAD
   base_url = 'http://172.31.252.101:8080/bookmyshow'
 
   constructor(private http: HttpClient) { }
@@ -18,14 +19,19 @@ export class ApiService {
     console.log(data, 'comons eser')
     return this.http.post(`${this.base_url}/${endPoint}`, data);
   }
+=======
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 
 
 
 
+<<<<<<< HEAD
   // put(path: string, data: any): Observable<any> {
   //   return this.http.put(path, data);
   // }
   // delete(path: string, id: any): Observable<any> {
   //   return this.http.delete(`${path}/${id}`);
   // }
+=======
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 }

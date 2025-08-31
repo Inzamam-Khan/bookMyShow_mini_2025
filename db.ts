@@ -484,6 +484,7 @@ export const movies = [
   },
 ];
 
+<<<<<<< HEAD
 export const cities = [
   {
     id: 1, city_name: 'Mumbai',
@@ -580,3 +581,6 @@ export const citiesJson = [
   { id: 59, name: "Cuttack" },
   { id: 60, name: "Dehradun" }
 ]
+=======
+
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf

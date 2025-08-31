@@ -1,13 +1,29 @@
+<<<<<<< HEAD
 /* Position the eye icon inside the input */
+=======
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 #togglePassword {
   position: absolute;
   right: 15px;
   top: 38px;
   cursor: pointer;
+<<<<<<< HEAD
   color: #6c757d; /* Bootstrap gray */
+=======
+  color: #6c757d;
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
   transition: 0.3s;
 }
 
 #togglePassword:hover {
+<<<<<<< HEAD
   color: #000; /* darker on hover */
+=======
+  color: #000;
+}
+.changeRouteFormPage a {
+  color: rgb(16, 98, 240);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 }

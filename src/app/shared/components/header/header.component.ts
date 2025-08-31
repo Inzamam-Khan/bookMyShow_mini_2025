@@ -12,12 +12,19 @@ import {
   NgbModalOptions,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+<<<<<<< HEAD
 import { cities } from '../../../../../db';
 import { UserAuthComponent } from '../../../auth/user-auth/user-auth.component';
 import { CommonService } from '../../../services/common.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { URLConstant } from '../../../apiUrls/url';
+=======
+import { UserAuthComponent } from '../../../auth/user-auth/user-auth.component';
+import { CommonService } from '../../../services/common.service';
+
+import { DomSanitizer } from '@angular/platform-browser';
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
 export class NgbdModalContent {
   activeModal = inject(NgbActiveModal);
 }
@@ -28,17 +35,30 @@ export class NgbdModalContent {
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
+<<<<<<< HEAD
   @ViewChild('content', { static: true }) content!: TemplateRef<any>;
   cityData: any[] = cities;
+=======
+  @ViewChild('cityModal', { static: true }) content!: TemplateRef<any>;
+  cityData: any[] = [];
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
   citiesJson: any = null;
   showCities = false;
   selectedCity: any;
   city = false;
   viewCitiesText: string = 'View All Cities';
   showProfileheader: any;
+<<<<<<< HEAD
   constructor(private modalService: NgbModal, public commonService: CommonService, private router: Router, private apiService: ApiService) {
 
     // this.selectedCity = this.commonService._selectCity()
+=======
+  constructor(private modalService: NgbModal, public commonService: CommonService,
+    private sanitizer: DomSanitizer
+  ) {
+
+    this.selectedCity = this.commonService._selectCity()
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
   }
 
   ngOnInit(): void {
@@ -46,12 +66,12 @@ export class HeaderComponent implements OnInit {
     // Open modal Without City Selected 
     this.showProfileheader = this.commonService._profileHeader()
     if (!this.selectedCity) {
-      this.open(this.content)
+      this.openCityModal(this.content)
     }
 
   }
 
-  open(content: TemplateRef<any>) {
+  openCityModal(content: TemplateRef<any>) {
     this.modalService.open(content, {
       modalDialogClass: 'dialog',
       ariaLabelledBy: 'modal-basic-title',
@@ -60,6 +80,7 @@ export class HeaderComponent implements OnInit {
 
   viewAllCities() {
     this.showCities = !this.showCities;
+<<<<<<< HEAD
     this.apiService.get(URLConstant.CITY.ALL_CITY).subscribe((res) => {
       this.viewCitiesText = this.showCities ? 'Hide All Cities' : 'View All Cities';
       this.citiesJson = this.showCities ? res : null;
@@ -68,6 +89,21 @@ export class HeaderComponent implements OnInit {
 
   getAllPopularCity() {
     this.apiService.get(URLConstant.CITY.POPULAR_CITY).subscribe((res) => {
+=======
+    if (this.showCities) {
+      this.commonService.getAllCities().subscribe((res) => {
+
+        this.citiesJson = this.showCities ? res : null;
+      })
+    }
+    this.viewCitiesText = this.showCities ? 'Hide All Cities' : 'View All Cities';
+
+  }
+
+  getAllPopularCity() {
+    this.commonService.getPopularCities().subscribe((res) => {
+      console.log(res)
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
       this.cityData = res;
     })
   }
@@ -80,9 +116,7 @@ export class HeaderComponent implements OnInit {
     };
     const modalRef = this.modalService.open(UserAuthComponent, modalOptions);
     modalRef.result.then((result) => {
-      console.log('Modal closed with result:', result);
     }, (reason) => {
-      console.log('Modal dismissed with reason:', reason);
     });
   }
 
@@ -107,6 +141,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
 
   closeModal(modalRef:NgbModalRef){
     if(modalRef){
@@ -132,6 +167,17 @@ export class HeaderComponent implements OnInit {
       this.modalService.dismissAll()
     } catch (error: any) {
       console.error(error.message);
+=======
+  editProfile() {
+
+  }
+  // Formating image
+  getImageFromBase64(base64string: string): any {
+    if (base64string) {
+      let imageType = base64string;
+      const fullBase64String = `data:${imageType};base64,${base64string}`;
+      return this.sanitizer.bypassSecurityTrustUrl(fullBase64String);
+>>>>>>> 074adfa4bf4bb972adb91a77c8224f5d32ba2ddf
     }
   }
 
