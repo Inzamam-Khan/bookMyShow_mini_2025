@@ -12,8 +12,8 @@ export class FilterAccordionComponent {
 
   @Output() filterEvent = new EventEmitter<string>()
 @Input() filters:any =[]
-  filterShowButtons: boolean = false;
-  filterText: any[] = ['Hindi', 'English', 'Gujrati', 'Marathi', 'Malayalam', 'Punjabi', 'Telugu']
+  filterShowButtons: boolean = true;
+  
 
 
   openedIndex: number[] = [0];
