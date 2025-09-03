@@ -25,6 +25,11 @@ const routes: Routes = [
     path: 'movies/:city/:id', component: MoviesDetailsComponent
 
   },
+
+  {
+    path: 'admin/create-venue',
+    component: CreateVenueComponent
+  },
   {
     path:'admin/create/venue',
     component:CreateVenueComponent
