@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MoviesDetailsComponent } from './shared/components/movies-details/movies-details.component';
 import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { CreateVenueComponent } from './shared/components/create-venue/create-venue.component';
+import { CreateContentComponent } from './shared/components/create-content/create-content.component';
+import { CreateShowComponent } from './shared/components/create-show/create-show.component';
 
 
 const routes: Routes = [
@@ -30,9 +32,19 @@ const routes: Routes = [
     path: 'admin/create-venue',
     component: CreateVenueComponent
   },
+  // --------------inz-----------------
   {
     path:'admin/create/venue',
     component:CreateVenueComponent
+  },
+  {
+path:'admin/create/content',
+component:CreateContentComponent
+  },
+
+  {
+path:'admin/create/show',
+component:CreateShowComponent
   },
   {
     path: '**',

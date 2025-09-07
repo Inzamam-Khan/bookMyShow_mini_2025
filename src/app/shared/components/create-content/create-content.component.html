@@ -1,0 +1,229 @@
+<form [formGroup]="contentForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+    <!-- Top-level content info -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title mb-3 text-center">General Content Info</h4>
+
+
+
+            <!-- Type -->
+            <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select class="form-select" formControlName="type">
+                    <option value="">-- Select Type --</option>
+                    <option *ngFor="let t of contentTypes" [value]="t">{{ t | titlecase }}</option>
+                </select>
+                <div class="text-danger small"
+                    *ngIf="contentForm.get('type')?.touched && contentForm.get('type')?.invalid">
+                    Type is required.
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" formControlName="name" />
+                <div class="text-danger small"
+                    *ngIf="contentForm.get('name')?.touched && contentForm.get('name')?.invalid">
+                    Name is required.
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" formControlName="description"></textarea>
+            </div>
+
+            <!-- Duration -->
+            <div class="mb-3">
+                <label class="form-label">Duration (mins)</label>
+                <input type="number" class="form-control" formControlName="duration" />
+            </div>
+
+            <!-- Poster URL -->
+            <div class="mb-3">
+                <label class="form-label">Poster URL</label>
+                <input type="file" class="form-control" formControlName="posterUrl" (change)="handleImageUpload()" />
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select" formControlName="status">
+                    <option value="" selected disabled>Select</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="released">Released</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Details Section -->
+    <div formGroupName="contentDetails">
+
+        <!-- MOVIE -->
+        <div *ngIf="contentForm.get('contentDetails.movie')" formGroupName="movie" class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🎬 Movie Details</h5>
+
+                <!-- Director -->
+                <div class="mb-3">
+                    <label class="form-label">Director</label>
+                    <input type="text" class="form-control" formControlName="director" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.movie.director')?.touched && contentForm.get('contentDetails.movie.director')?.invalid">
+                        Director is required.
+                    </div>
+                </div>
+
+
+                 <div class="mb-3">
+                    <label class="form-label">Cast</label>
+                    <input type="text" class="form-control" formControlName="cast" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.movie.cast')?.touched && contentForm.get('contentDetails.movie.cast')?.invalid">
+                        Cast is required.
+                    </div>
+                </div>
+
+                <!-- Release Date -->
+                <div class="mb-3">
+                    <label class="form-label">Release Date</label>
+                    <input type="date" class="form-control" formControlName="releaseDate" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.movie.releaseDate')?.touched && contentForm.get('contentDetails.movie.releaseDate')?.invalid">
+                        Release Date is required.
+                    </div>
+                </div>
+
+                <!-- Trailer -->
+                <div class="mb-3">
+                    <label class="form-label">Trailer URL</label>
+                    <input type="text" class="form-control" formControlName="trailerUrl" />
+                </div>
+
+                <!-- Languages -->
+                <div class="mb-3" formArrayName="language">
+                    <label class="form-label">Languages</label>
+                    <div *ngFor="let lang of eventPerformers?.controls; let i = index" class="input-group mb-2">
+                        <input class="form-control" [formControlName]="i" />
+                        <button class="btn btn-outline-danger" type="button"
+                            (click)="removeFormArrayItem('contentDetails.movie.language', i)">✕</button>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" type="button"
+                        (click)="addFormArrayItem('contentDetails.movie.language')">+ Add Language</button>
+                </div>
+
+                <!-- Genres -->
+                <div class="mb-3" formArrayName="genres">
+                    <label class="form-label">Genres</label>
+                    <div *ngFor="let g of movieGenres?.controls let i = index" class="input-group mb-2">
+                        <input class="form-control" [formControlName]="i" />
+                        <button class="btn btn-outline-danger" type="button"
+                            (click)="removeFormArrayItem('contentDetails.movie.genres', i)">✕</button>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" type="button"
+                        (click)="addFormArrayItem('contentDetails.movie.genres')">+ Add Genre</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT -->
+        <div *ngIf="contentForm.get('contentDetails.event')" formGroupName="event" class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🎤 Event Details</h5>
+
+                <!-- Category -->
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" formControlName="category" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.event.category')?.touched && contentForm.get('contentDetails.event.category')?.invalid">
+                        Category is required.
+                    </div>
+                </div>
+
+                <!-- Performers -->
+                <div class="mb-3" formArrayName="performers">
+                    <label class="form-label">Performers</label>
+                    <div *ngFor="let p of eventPerformers?.controls; let i = index" class="input-group mb-2">
+                        <input class="form-control" [formControlName]="i" />
+                        <button class="btn btn-outline-danger" type="button"
+                            (click)="removeFormArrayItem('contentDetails.event.performers', i)">✕</button>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" type="button"
+                        (click)="addFormArrayItem('contentDetails.event.performers')">+ Add Performer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPORT -->
+        <div *ngIf="contentForm.get('contentDetails.sport')" formGroupName="sport" class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🏆 Sport Details</h5>
+
+                <!-- Sport Type -->
+                <div class="mb-3">
+                    <label class="form-label">Sport Type</label>
+                    <input type="text" class="form-control" formControlName="sportType" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.sport.sportType')?.touched && contentForm.get('contentDetails.sport.sportType')?.invalid">
+                        Sport type is required.
+                    </div>
+                </div>
+
+                <!-- Teams -->
+                <div class="mb-3" formArrayName="teams">
+                    <label class="form-label">Teams</label>
+                    <div *ngFor="let team of sportTeams?.controls; let i = index" class="input-group mb-2">
+                        <input class="form-control" [formControlName]="i" />
+                        <button class="btn btn-outline-danger" type="button"
+                            (click)="removeFormArrayItem('contentDetails.sport.teams', i)">✕</button>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" type="button"
+                        (click)="addFormArrayItem('contentDetails.sport.teams')">+ Add Team</button>
+                </div>
+
+                <!-- League -->
+                <div class="mb-3">
+                    <label class="form-label">League</label>
+                    <input type="text" class="form-control" formControlName="league" />
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY -->
+        <div *ngIf="contentForm.get('contentDetails.activity')" formGroupName="activity" class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">💡 Activity Details</h5>
+
+                <!-- Category -->
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" formControlName="category" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.activity.category')?.touched && contentForm.get('contentDetails.activity.category')?.invalid">
+                        Category is required.
+                    </div>
+                </div>
+
+                <!-- Instructor -->
+                <div class="mb-3">
+                    <label class="form-label">Instructor</label>
+                    <input type="text" class="form-control" formControlName="instructor" />
+                    <div class="text-danger small"
+                        *ngIf="contentForm.get('contentDetails.activity.instructor')?.touched && contentForm.get('contentDetails.activity.instructor')?.invalid">
+                        Instructor is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-end">
+        <button class="btn btn-success px-4" type="submit">Submit</button>
+    </div>
+</form>

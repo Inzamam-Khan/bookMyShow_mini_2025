@@ -1,0 +1,255 @@
+<form [formGroup]="showForm" (ngSubmit)="onSubmit()" class="p-3">
+
+    <div class="row">
+        <div class="mb-3 w-50">
+            <label class="form-label">Event Type</label>
+            <select class="form-select" formControlName="eventType">
+                <option value="" disabled selected>Select</option>
+                <option value="movies">Movies</option>
+                <option value="sports">Sports</option>
+                <option value="events">Events</option>
+                <option value="activities">Activities</option>
+            </select>
+            <div class="text-danger" *ngIf="showForm.get('eventType')?.touched && showForm.get('eventType')?.invalid">
+                Event Type is required.
+            </div>
+        </div>
+
+
+        <div class="w-50 mb-3">
+            <label class="form-label">City</label>
+            <select formControlName="city" class="form-select" (change)="onCityChange()">
+                <option value="" disabled selected>Select</option>
+                <option value="noida">Noida</option>
+                <option value="gurgaon">Gurgaon</option>
+                <option value="kanpur">Kanpur</option>
+                <option value="delhi">Delhi</option>
+            </select>
+            <div class="invalid-feedback">City is required.</div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- Show Details -->
+    <div class="row mb-3">
+
+        <div class="w-50 mb-3">
+            <label class="form-label">Venue Name:</label>
+            <select formControlName="venueName" class="form-select" (change)="onVenueNameChange()">
+                <option value="" disabled selected>Select</option>
+               @for(venue of  venuesNameList ;track $index){
+                <option value="{{venue.venueName}}">{{venue.venueName}}</option>
+               }
+            </select>
+          <div class="text-danger" *ngIf="showForm.get('venueId')?.touched && showForm.get('venueId')?.invalid">
+                Venue name is required.
+            </div>
+        </div>
+
+
+
+         <div class="w-50 mb-3">
+            <label class="form-label">Event Name:</label>
+            <select formControlName="eventName" class="form-select">
+                <option value="" disabled selected>Select</option>
+                @for(event of  eventsNameList ;track $index){
+                <option value="{{event.name}}">{{event.name}}</option>
+                }
+            </select>
+            <div class="text-danger" *ngIf="showForm.get('eventId')?.touched && showForm.get('eventId')?.invalid">
+                Event name is required.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Event Type -->
+
+
+    <!-- Schedule -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" formControlName="date" />
+            <div class="text-danger" *ngIf="showForm.get('date')?.touched && showForm.get('date')?.invalid">
+                Date is required.
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Start Time</label>
+            <input type="time" class="form-control" formControlName="startTime" />
+            <div class="text-danger" *ngIf="showForm.get('startTime')?.touched && showForm.get('startTime')?.invalid">
+                Start Time is required.
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Duration (min)</label>
+            <input type="number" class="form-control" formControlName="duration" />
+            <div class="text-danger"
+                *ngIf="showForm.get('duration')?.touched && showForm.get('duration')?.hasError('required')">
+                Duration is required.
+            </div>
+            <div class="text-danger"
+                *ngIf="showForm.get('duration')?.touched && showForm.get('duration')?.hasError('min')">
+                Duration must be greater than 0.
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Details -->
+
+    @if(showForm.get('eventType')?.value =='movies'){
+
+         <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Language</label>
+            <input type="text" class="form-control" formControlName="language" />
+            <div class="text-danger" *ngIf="showForm.get('language')?.touched && showForm.get('language')?.invalid">
+                Language is required.
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Format</label>
+            <input type="text" class="form-control" formControlName="format" />
+            <div class="text-danger" *ngIf="showForm.get('format')?.touched && showForm.get('format')?.invalid">
+                Format is required.
+            </div>
+        </div>
+    </div>
+
+
+     <div formGroupName="locationReference" class="mb-3">
+        <label class="form-label">Screen Name</label>
+        <input type="text" class="form-control" formControlName="screenName" />
+        <div class="text-danger"
+            *ngIf="showForm.get('locationReference.screenName')?.touched && showForm.get('locationReference.screenName')?.invalid">
+            Screen Name is required.
+        </div>
+    </div>
+    }
+   
+
+    <!-- Location Reference -->
+   
+
+    <!-- Categories -->
+    <div formArrayName="categories" class="mb-4">
+        <h5>Categories</h5>
+        <button type="button" class="btn btn-sm btn-primary mb-2" (click)="addCategory()">+ Add Category</button>
+
+        <div *ngFor="let category of categories.controls; let i = index" [formGroupName]="i"
+            class="border p-3 mb-3 rounded">
+            <h6>Category {{ i + 1 }}</h6>
+
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <label class="form-label">Category Name</label>
+                    <input type="text" class="form-control" formControlName="category" />
+                    <div class="text-danger"
+                        *ngIf="category.get('category')?.touched && category.get('category')?.invalid">
+                        Category is required.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-control" formControlName="price" />
+                    <div class="text-danger"
+                        *ngIf="category.get('price')?.touched && category.get('price')?.hasError('required')">
+                        Price is required.
+                    </div>
+                    <div class="text-danger"
+                        *ngIf="category.get('price')?.touched && category.get('price')?.hasError('min')">
+                        Price cannot be negative.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Total Seats</label>
+                    <input type="number" class="form-control" formControlName="totalSeats" />
+                    <div class="text-danger"
+                        *ngIf="category.get('totalSeats')?.touched && category.get('totalSeats')?.hasError('required')">
+                        Total Seats are required.
+                    </div>
+                    <div class="text-danger"
+                        *ngIf="category.get('totalSeats')?.touched && category.get('totalSeats')?.hasError('min')">
+                        Must be at least 1 seat.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reserved Seats -->
+            <div formArrayName="reservedSeats">
+                <h6>Reserved Seats</h6>
+                <button type="button" class="btn btn-sm btn-secondary mb-2" (click)="addReservedSeat(i)">+ Add Reserved
+                    Seat</button>
+
+                <div *ngFor="let seat of getReservedSeats(i).controls; let j = index" [formGroupName]="j"
+                    class="border p-2 mb-2 rounded bg-light">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">Seat ID</label>
+                            <input type="text" class="form-control" formControlName="seatId" />
+                            <div class="text-danger" *ngIf="seat.get('seatId')?.touched && seat.get('seatId')?.invalid">
+                                Seat ID is required.
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" formControlName="status">
+                                <option value="">Select</option>
+                                <option value="reserved">Reserved</option>
+                                <option value="booked">Booked</option>
+                                <option value="blocked">Blocked</option>
+                            </select>
+                            <div class="text-danger" *ngIf="seat.get('status')?.touched && seat.get('status')?.invalid">
+                                Status is required.
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">User ID</label>
+                            <input type="text" class="form-control" formControlName="userId" />
+                            <div class="text-danger" *ngIf="seat.get('userId')?.touched && seat.get('userId')?.invalid">
+                                User ID is required.
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Timestamp</label>
+                            <input type="datetime-local" class="form-control" formControlName="timestamp" />
+                            <div class="text-danger"
+                                *ngIf="seat.get('timestamp')?.touched && seat.get('timestamp')?.invalid">
+                                Timestamp is required.
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Hold Expiry</label>
+                            <input type="datetime-local" class="form-control" formControlName="holdExpiry" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select class="form-select" formControlName="status">
+            <option value="">Select</option>
+            <option value="active">Active</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="completed">Completed</option>
+            <option value="ongoing">Ongoing</option>
+        </select>
+        <div class="text-danger" *ngIf="showForm.get('status')?.touched && showForm.get('status')?.invalid">
+            Status is required.
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
