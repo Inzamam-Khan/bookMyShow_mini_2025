@@ -88,8 +88,7 @@
         </select>
     </div>
 
-    @if(venueForm.get('additionalFields.screens')){
-    <div class="card mt-3 p-3" formGroupName="additionalFields">
+    @if(venueForm.get('screens')){
         <div formArrayName="screens">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="">Screens</h4>
@@ -133,22 +132,21 @@
                         </div>
                         <button type="button" class="btn btn-sm btn-danger col-2  ms-auto mt-auto  mb-2"
                             (click)="removeLayout(screen, $index)">
-                            + Remove Category
+                             Remove Category
                         </button>
                     </div>
                     }
                     <!-- Add Layout Button -->
                     <button type="button" class="btn btn-sm btn-primary mt-2" (click)="addLayout(screen)">
-                        + Add Category
+                         Add Category
                     </button>
                 </div>
             </div>
             <button type="button" class="btn btn-sm btn-danger my-2 col-2 ms-auto " (click)="removeScreen($index)">
-                + Remove Screen
+                Remove Screen
             </button>
             }
         </div>
-    </div>
     }
 
     <div formArrayName="amenities" class="my-3 ">

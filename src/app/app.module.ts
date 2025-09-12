@@ -20,6 +20,7 @@ import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
 import { EventsDetailsComponent } from './shared/components/events-details/events-details.component';
+import { CreateShowComponent } from './create-show/create-show.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { EventsDetailsComponent } from './shared/components/events-details/event
     ErrorPageComponent,
     SearchBoxComponent,
     TheatreListComponent,
+    CreateShowComponent,
   ],
   imports: [BrowserModule, BrowserAnimationsModule,
     AppRoutingModule, NgbModule, ReactiveFormsModule, FormsModule, MoviesDetailsComponent, CarouselModule, FilterAccordionComponent, HttpClientModule, UserAuthComponent, EventsDetailsComponent,

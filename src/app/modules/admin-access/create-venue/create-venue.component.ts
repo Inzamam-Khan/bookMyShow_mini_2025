@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdminService } from '../service/admin.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: false,
@@ -121,7 +123,9 @@ export class CreateVenueComponent implements OnInit {
 
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private adminService:AdminService,
+    private toaster:ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.venueForm = this.fb.group({
@@ -135,7 +139,6 @@ export class CreateVenueComponent implements OnInit {
       venueFor: ['', Validators.required],
       venueType: ['', Validators.required],
       supportedCategories: ['', Validators.required],
-      additionalFields: this.fb.group({}),
       amenities: this.fb.array([])
     });
 
@@ -146,15 +149,16 @@ export class CreateVenueComponent implements OnInit {
     let venueFor = this.venueForm.get('venueFor')?.value as keyof typeof this.venueTypeMapping
     this.venueForm.get('venueType')?.setValue('')
     this.venueForm.get('supportedCategories')?.setValue('')
-    let additionalFields = this.venueForm.get('additionalFields') as FormGroup
     this.venueType = this.venueTypeMapping[venueFor]
 
     if (venueFor == 'movies') {
-      additionalFields.addControl('screens',
-        this.fb.array([this.createScreen()]))
+      this.venueForm.addControl('screens',
+
+        this.fb.array([this.createScreen()])
+      )
     }
     else {
-      additionalFields.removeControl('screens')
+      this.venueForm.removeControl('screens')
     }
   }
 
@@ -166,7 +170,7 @@ export class CreateVenueComponent implements OnInit {
   }
 
   get screens() {
-    return this.venueForm.get('additionalFields.screens') as FormArray
+    return this.venueForm.get('screens') as FormArray
   }
 
   createScreen() {
@@ -247,6 +251,20 @@ export class CreateVenueComponent implements OnInit {
     if (this.venueForm.valid) {
       // --------to do-----------------
       // bind the api from backend
+
+      this.adminService.createVenue(this.venueForm.value).subscribe({
+        next:(res)=>{
+
+          console.log(res)
+          this.toaster.success('Venue Created Success-Inz')
+        },
+        error:res=>
+          this.toaster.error(res.error.message)
+
+
+
+      }
+      )
     } else {
       this.venueForm.markAllAsTouched();
     }

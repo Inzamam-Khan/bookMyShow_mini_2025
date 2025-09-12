@@ -70,5 +70,13 @@ export class AdminService {
     }
 
     
+
+    createVenue(payload:any):Observable<any>{
+      return this.http.post<any>(
+        `${this.baseUrl}/venues/create`,
+        payload
+
+      )
+    }
   
 }

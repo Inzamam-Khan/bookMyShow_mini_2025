@@ -591,3 +591,325 @@ export const topFilters = [
 
 
 
+// ------------inz start----------------
+
+
+
+
+export const contents=[
+  {
+    "contentId": "c001",
+    "type": "movies",
+    "name": "Avengers: Endgame",
+    "description": "The Avengers assemble once more to reverse Thanos' snap.",
+    "duration": 180,
+    "posterUrl": "https://dummyimage.com/avengers.jpg",
+    "status": "running",
+    "movieDetails": {
+      "language": ["Hindi", "English"],
+      "format": ["2D", "3D", "IMAX"],
+      "genres": ["Action", "Sci-Fi"],
+      "cast": ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"]
+    }
+  },
+  {
+    "contentId": "c002",
+    "type": "sports",
+    "name": "India vs Australia T20",
+    "description": "Exciting T20 cricket match at Eden Gardens.",
+    "duration": 240,
+    "posterUrl": "https://dummyimage.com/cricket.jpg",
+    "status": "upcoming",
+    "sportsDetails": {
+      "sportType": "cricket",
+      "teams": ["India", "Australia"],
+      "league": "International T20"
+    }
+  },
+  {
+    "contentId": "c003",
+    "type": "activity",
+    "name": "Yoga Wellness Workshop",
+    "description": "Morning yoga session with a certified instructor.",
+    "duration": 90,
+    "posterUrl": "https://dummyimage.com/yoga.jpg",
+    "status": "upcoming",
+    "activityDetails": {
+      "category": "workshop",
+      "instructor": "Anjali Sharma"
+    }
+  },
+  {
+    "contentId": "c004",
+    "type": "movies",
+    "name": "Oppenheimer",
+    "description": "The story of J. Robert Oppenheimer and the creation of the atomic bomb.",
+    "duration": 180,
+    "posterUrl": "https://dummyimage.com/oppenheimer.jpg",
+    "status": "running",
+    "movieDetails": {
+      "language": ["English"],
+      "format": ["IMAX", "2D"],
+      "genres": ["Drama", "History"],
+      "cast": ["Cillian Murphy", "Emily Blunt", "Matt Damon"]
+    }
+  },
+  {
+    "contentId": "c005",
+    "type": "sports",
+    "name": "Champions League Final",
+    "description": "The grand finale of the UEFA Champions League.",
+    "duration": 150,
+    "posterUrl": "https://dummyimage.com/ucl.jpg",
+    "status": "upcoming",
+    "sportsDetails": {
+      "sportType": "football",
+      "teams": ["Real Madrid", "Manchester City"],
+      "league": "UEFA Champions League"
+    }
+  },
+  {
+    "contentId": "c006",
+    "type": "event",
+    "name": "Arijit Singh Live Concert",
+    "description": "A soulful musical evening with Arijit Singh.",
+    "duration": 210,
+    "posterUrl": "https://dummyimage.com/concert.jpg",
+    "status": "upcoming",
+    "eventDetails": {
+      "category": "concert",
+      "performers": ["Arijit Singh"]
+    }
+  },
+  {
+    "contentId": "c007",
+    "type": "activity",
+    "name": "Photography Masterclass",
+    "description": "Learn professional photography techniques in this interactive workshop.",
+    "duration": 120,
+    "posterUrl": "https://dummyimage.com/photography.jpg",
+    "status": "upcoming",
+    "activityDetails": {
+      "category": "seminar",
+      "instructor": "Ravi Kapoor"
+    }
+  },
+  {
+    "contentId": "c008",
+    "type": "movies",
+    "name": "Inception",
+    "description": "A thief who enters dreams to steal secrets gets the toughest mission of his life.",
+    "duration": 160,
+    "posterUrl": "https://dummyimage.com/inception.jpg",
+    "status": "archived",
+    "movieDetails": {
+      "language": ["English", "French"],
+      "format": ["2D", "IMAX"],
+      "genres": ["Sci-Fi", "Thriller"],
+      "cast": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"]
+    }
+  },
+  {
+    "contentId": "c009",
+    "type": "event",
+    "name": "Tech Expo 2025",
+    "description": "Annual technology exhibition showcasing latest innovations.",
+    "duration": 480,
+    "posterUrl": "https://dummyimage.com/techexpo.jpg",
+    "status": "upcoming",
+    "eventDetails": {
+      "category": "exhibition",
+      "performers": ["Tech Startups", "Industry Leaders"]
+    }
+  },
+  {
+    "contentId": "c010",
+    "type": "sports",
+    "name": "Wimbledon Finals",
+    "description": "The prestigious Wimbledon Tennis Championship Finals.",
+    "duration": 180,
+    "posterUrl": "https://dummyimage.com/wimbledon.jpg",
+    "status": "upcoming",
+    "sportsDetails": {
+      "sportType": "tennis",
+      "teams": ["Novak Djokovic", "Carlos Alcaraz"],
+      "league": "Grand Slam"
+    }
+  }
+]
+
+
+
+export const venues=[
+  {
+    "venueName": "Crystal Auditorium",
+    "address": {
+      "street": "12 Pearl Avenue",
+      "city": "Chandigarh",
+      "pin": "160017"
+    },
+    "venueCapacity": 800,
+    "venueFor": "events",
+    "venueType": "auditorium",
+    "supportedCategories": ["Seminars", "Live Performances", "Graduation Ceremonies"],
+    "additionalFields": {
+      "projectorAvailable": true,
+      "stageLighting": "Full RGB LED"
+    },
+    "amenities": ["Air Conditioning", "Projector", "AV System", "Green Room"]
+  },
+  {
+    "venueName": "Unity Sports Court",
+    "address": {
+      "street": "Block C, Sector 10",
+      "city": "Noida",
+      "pin": "201301"
+    },
+    "venueCapacity": 200,
+    "venueFor": "sports",
+    "venueType": "court",
+    "supportedCategories": ["Basketball", "Tennis", "Badminton"],
+    "additionalFields": {
+      "surfaceType": "Synthetic",
+      "lighting": "LED",
+      "indoor": true
+    },
+    "amenities": ["Scoreboard", "Benches", "Locker Rooms", "Coach Room"]
+  },
+  {
+    "venueName": "Titan Stadium",
+    "address": {
+      "street": "99 Arena Road",
+      "city": "Ahmedabad",
+      "pin": "380015"
+    },
+    "venueCapacity": 50000,
+    "venueFor": "sports",
+    "venueType": "stadium",
+    "supportedCategories": ["Cricket", "Football", "Concerts"],
+    "additionalFields": {
+      "coveredSeating": true,
+      "VIPBoxes": true
+    },
+    "amenities": ["LED Screens", "CCTV", "Food Stalls", "Parking"]
+  },
+  {
+    "venueName": "Sunrise Sports Ground",
+    "address": {
+      "street": "22 Open Field Road",
+      "city": "Jaipur",
+      "pin": "302012"
+    },
+    "venueCapacity": 1000,
+    "venueFor": "sports",
+    "venueType": "ground",
+    "supportedCategories": ["Cricket", "Football", "Athletics"],
+    "additionalFields": {
+      "groundType": "Grass",
+      "boundaryFence": true
+    },
+    "amenities": ["Changing Rooms", "Drinking Water", "Seating Area", "First Aid"]
+  },
+  {
+    "venueName": "Regal Theatre Hall",
+    "address": {
+      "street": "5 Classic Street",
+      "city": "Kolkata",
+      "pin": "700001"
+    },
+    "venueCapacity": 300,
+    "venueFor": "movies",
+    "venueType": "theatre",
+    "supportedCategories": ["Classic Films", "Drama Screenings"],
+    "additionalFields": {
+      "screenType": "Digital",
+      "soundSystem": "Dolby Digital"
+    },
+    "amenities": ["Cushioned Seating", "Snack Bar", "Online Tickets", "3D Glasses"]
+  },
+  {
+    "venueName": "Galaxy Multiplex",
+    "address": {
+      "street": "Sector 62 Mall Road",
+      "city": "Gurgaon",
+      "pin": "122002"
+    },
+    "venueCapacity": 1200,
+    "venueFor": "movies",
+    "venueType": "theatre",
+    "supportedCategories": ["3D Films", "Hollywood", "Bollywood"],
+    "additionalFields": {
+      "screens": 6,
+      "premiumSeats": true
+    },
+    "amenities": ["Recliner Seats", "Dolby Atmos", "Food Court", "Parking"]
+  },
+  {
+    "venueName": "Lotus Event Convention Center",
+    "address": {
+      "street": "44 Harmony Street",
+      "city": "Delhi",
+      "pin": "110001"
+    },
+    "venueCapacity": 1500,
+    "venueFor": "events",
+    "venueType": "convention-center",
+    "supportedCategories": ["Dance Shows", "Music Performances", "Drama"],
+    "additionalFields": {
+      "soundSystem": "Bose Professional",
+      "acousticDesign": "Theatre-grade"
+    },
+    "amenities": ["Stage", "VIP Lounge", "Cafe", "Exhibition Area"]
+  },
+  {
+    "venueName": "Emerald Stadium",
+    "address": {
+      "street": "88 Victory Lane",
+      "city": "Bengaluru",
+      "pin": "560001"
+    },
+    "venueCapacity": 45000,
+    "venueFor": "sports",
+    "venueType": "stadium",
+    "supportedCategories": ["Football", "Athletics", "Concerts"],
+    "additionalFields": {
+      "roofType": "Retractable",
+      "vipLounge": true
+    },
+    "amenities": ["LED Screens", "Food Court", "Parking", "Medical Center"]
+  },
+  {
+    "venueName": "Greenfield Grounds",
+    "address": {
+      "street": "19 Sports Colony",
+      "city": "Lucknow",
+      "pin": "226001"
+    },
+    "venueCapacity": 5000,
+    "venueFor": "sports",
+    "venueType": "ground",
+    "supportedCategories": ["Hockey", "Football", "Cricket"],
+    "additionalFields": {
+      "grassType": "Hybrid Turf",
+      "floodLights": true
+    },
+    "amenities": ["Seating Area", "Scoreboard", "Parking", "CCTV"]
+  },
+  {
+    "venueName": "Silver Screen Cineplex",
+    "address": {
+      "street": "11 Film Street",
+      "city": "Pune",
+      "pin": "411001"
+    },
+    "venueCapacity": 800,
+    "venueFor": "movies",
+    "venueType": "threatre",
+    "supportedCategories": ["Regional Films", "Hollywood Blockbusters"],
+    "additionalFields": {
+      "soundSystem": "IMAX Enhanced",
+      "screens": 4
+    },
+    "amenities": ["Recliners", "Online Booking", "Popcorn Bar", "4K Projection"]
+  }
+]
