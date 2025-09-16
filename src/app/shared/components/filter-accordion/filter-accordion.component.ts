@@ -23,9 +23,18 @@ export class FilterAccordionComponent {
     this.browseBy = this.commonService._selectedCategory() === 'Movies' ? 'Cinemas' : 'Venues';
   }
 
+  ngOnInit(){
+    
+
+  this.filtersArray=this.commonService.filtersSignal()
+console.log(this.filtersArray)
+  }
+
   ngOnChanges(changes: SimpleChanges) {
   if (changes['filters']) {
     this.filtersArray=this.commonService.formatFilters(this.filters)
+
+
     } 
 }
 

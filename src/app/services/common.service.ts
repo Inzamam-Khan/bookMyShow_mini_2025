@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -11,9 +11,208 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class CommonService {
   filters: any[] = filters
   select: any[] = selectedFilters
-   baseUrl = environment.baseUrl
+  baseUrl = environment.baseUrl
+  // ----------------------------------------------
+
+  // topFiltersArray = signal<any>(
+  //   this.formatFilters([
+  //     {
+  //       type:'Language',
+  //       data:[ {
+  //       languageId: 1,
+  //       languageName: "Hindi"
+  //     },
+  //     {
+  //       languageId: 4,
+  //       languageName: "Telugu"
+  //     },
+  //     {
+  //       languageId: 2,
+  //       languageName: "English"
+  //     },
+  //     {
+  //       languageId: 5,
+  //       languageName: "Gujarati"
+  //     },
+  //     {
+  //       languageId: 3,
+  //       languageName: "Japanese"
+  //     },
+  //     {
+  //       languageId: 7,
+  //       languageName: "Tamil"
+  //     },
+  //     {
+  //       languageId: 9,
+  //       languageName: "Punjabi"
+  //     },
+  //     {
+  //       languageId: 6,
+  //       languageName: "Malayalam"
+  //     }]
+  //     }
+
+  //   ])
+  // )
 
 
+
+  selectedFiltersSignal = signal<any>(
+    [
+
+      {
+        type: "Language",
+        data: []
+      },
+      {
+        type: "Formats",
+        data: []
+      },
+      {
+        type: "Genres",
+        data: []
+      },
+
+    ])
+
+  filtersSignal = signal<any[]>(
+    this.formatFilters(
+      [
+        {
+
+          type: "Language",
+          data: [
+            {
+              languageId: 1,
+              languageName: "Hindi"
+            },
+            {
+              languageId: 4,
+              languageName: "Telugu"
+            },
+            {
+              languageId: 2,
+              languageName: "English"
+            },
+            {
+              languageId: 5,
+              languageName: "Gujarati"
+            },
+            {
+              languageId: 3,
+              languageName: "Japanese"
+            },
+            {
+              languageId: 7,
+              languageName: "Tamil"
+            },
+            {
+              languageId: 9,
+              languageName: "Punjabi"
+            },
+            {
+              languageId: 6,
+              languageName: "Malayalam"
+            }
+          ]
+        },
+        {
+          type: "Formats",
+          data: [
+            {
+              "formatId": 1,
+              "formatName": "2D"
+            },
+            {
+              "formatId": 2,
+              "formatName": "3D"
+            },
+            {
+              "formatId": 3,
+              "formatName": "4DX"
+            },
+            {
+              "formatId": 4,
+              "formatName": "MX4D"
+            },
+            {
+              "formatId": 5,
+              "formatName": "2D SCREEN X"
+            },
+            {
+              "formatId": 6,
+              "formatName": "IMAX 2D"
+            }
+          ]
+        },
+        {
+
+          type: "Genres",
+          data: [
+            {
+              "genresId": 10,
+              "genresName": "Crime"
+            },
+            {
+              "genresId": 21,
+              "genresName": "Biography"
+            },
+            {
+              "genresId": 2,
+              "genresName": "Comedy"
+            },
+            {
+              "genresId": 6,
+              "genresName": "Fantasy"
+            },
+            {
+              "genresId": 3,
+              "genresName": "Action"
+            },
+            {
+              "genresId": 14,
+              "genresName": "Mystery"
+            },
+            {
+              "genresId": 12,
+              "genresName": "Historical"
+            },
+            {
+              "genresId": 1,
+              "genresName": "Drama"
+            },
+            {
+              "genresId": 4,
+              "genresName": "Thriller"
+            },
+            {
+              "genresId": 5,
+              "genresName": "Family"
+            },
+            {
+              "genresId": 23,
+              "genresName": "Adventure"
+            }
+          ]
+        }
+
+      ])
+  )
+
+
+  topFiltersArray = computed(() =>
+    this.filtersSignal()
+      .map(group => ({
+        type: group.type,
+        data: group.data.filter((item: any) => !item.selected)  // only selected ones
+      }))
+      .filter(group => group.data.length > 0) // remove empty groups
+  );
+
+
+
+
+  // ----------------------------------------------
   city = sessionStorage.getItem("selectedCity");
   _selectCity = signal<any>(this.city ? JSON.parse(this.city) : null);
   _profileHeader = signal<any>(false);
@@ -71,8 +270,6 @@ export class CommonService {
 * @returnType [Filter] return the filteredArray on the basis of category
 */
   getTopFiltersArray(target: any): Observable<any> {
-
-
     return this.http.get(`${this.baseUrl}/api/events/${target}`)
   }
 
@@ -83,7 +280,8 @@ export class CommonService {
  * @returnType void
  */
   handleEventFilter(filter: any): void {
-    this.filters.map((item: any) => {
+    console.log(filter)
+    this.filtersSignal().map((item: any) => {
       if (item.type == filter.type) {
         item.data.map((i: any) => {
           if (i.text == filter.filterName.text) {
@@ -93,14 +291,16 @@ export class CommonService {
       }
     }
     )
-    let filterType: any[] = this.select.filter((item: any) =>
+    let filterType: any[] = this.selectedFiltersSignal().filter((item: any) =>
       item.type == filter.type
     )
 
+    console.log(filterType)
+
     if (filterType) {
-      let alreayExist = filterType[0].data.filter((i: any) => i.text == filter.text)
+      let alreayExist = filterType[0].data.filter((i: any) => i.text == filter.filterName.text)
       if (alreayExist.length == 0) {
-        filterType[0].data.push(filter)
+        filterType[0].data.push(filter.filterName)
         return filterType[0].data.sort((a: any, b: any) => a.index - b.index)
       }
       else {
@@ -125,7 +325,7 @@ export class CommonService {
 
   }
 
-  
+
   listYourShowService = [
     {
       image: 'assets/images/list-your-show/online-saless.png',
@@ -175,43 +375,43 @@ export class CommonService {
       let filteredData;
 
       switch (type) {
-         case 'Language':
+        case 'Language':
           filteredData = data.map((i: any) => ({ ...i, text: i.languageName, selected: false }));
           break;
 
-         case 'Genres':
+        case 'Genres':
           filteredData = data.map((i: any) => ({ ...i, text: i.genresName, selected: false }));
           break;
 
-         case 'Formats':
+        case 'Formats':
           filteredData = data.map((i: any) => ({ ...i, text: i.formatName, selected: false }));
           break;
 
-         case 'Date':
+        case 'Date':
           filteredData = data.map((i: any) => ({ ...i, text: i.dateFilterName, selected: false }));
           break;
 
-         case 'Categories':
-           filteredData = data.map((i: any) => ({ ...i, text: i.categoryName, selected: false }));
+        case 'Categories':
+          filteredData = data.map((i: any) => ({ ...i, text: i.categoryName, selected: false }));
           break;
- 
-         case 'More Filters':
+
+        case 'More Filters':
           filteredData = data.map((i: any) => ({ ...i, text: i.moreFilterName, selected: false }));
           break;
- 
-         case 'Price':
+
+        case 'Price':
           filteredData = data.map((i: any) => ({ ...i, text: i.priceRange, selected: false }));
           break;
 
-          case 'Tags':
+        case 'Tags':
           filteredData = data.map((i: any) => ({ ...i, text: i.tageName, selected: false }));
           break;
 
-          case 'Release Month':
+        case 'Release Month':
           filteredData = data.map((i: any) => ({ ...i, text: i.releaseMonthName, selected: false }));
           break;
 
-         default:
+        default:
           filteredData = data;
       }
       filtersArray.push({ type, data: filteredData });

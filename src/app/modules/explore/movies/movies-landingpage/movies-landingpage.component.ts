@@ -34,7 +34,18 @@ export class MovieLandingPageComponent implements OnDestroy {
    * @returnType void
    */
 
+
+  test(){
+// console.log(this.commonService.selectedFiltersSignal())  
+console.log(this.commonService.topFiltersArray())  
+  }
   ngOnInit(): void {
+
+// console.log(this.commonService.topFiltersArray())
+
+
+
+
     this.setFilter()
     this.movieService.getFilters('languages').subscribe({
       next: (res) => {

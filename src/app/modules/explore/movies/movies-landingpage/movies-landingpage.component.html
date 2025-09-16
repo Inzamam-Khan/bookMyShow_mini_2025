@@ -39,6 +39,8 @@
                     </div>
                     <div class="col-9">
                         <h4 class="fs-4 fw-500 m-0">Movies in {{commonService._selectCity()}}</h4>
+                        <button (click)="test()"
+                        >test</button>
                     </div>
                 </div>
                 <div class="filter_cards_container d-flex justify-content-between py-4">
@@ -54,19 +56,19 @@
                     <div class="col-9 d-block ">
                         <div class="top_bar_Comming_soon d-flex flex-column gap-3">
                             <div class="d-flex gap-2 language_text py-2 flex-wrap">
-                                @for (item of select; track $index) {
+                                @for (item of commonService.selectedFiltersSignal(); track $index) {
                                 @for(i of item.data;track $index){
                                 <span [ngClass]="{selectedText: i.selected}">
                                     {{i.text}}
                                 </span>
                                 }
                                 }
-                                @for (item of topFiltersArray; track $index) {
+                                @for (item of commonService.topFiltersArray()[1].data; track $index) {
                                 @if(!item.selected){
 
                                 <span [ngClass]="{selectedText: item.selected}"
                                     (click)="commonService.handleEventFilter(item)">
-                                    {{item.languageName}}
+                                    {{item.text}}
                                 </span>
                                 }
                                 }
