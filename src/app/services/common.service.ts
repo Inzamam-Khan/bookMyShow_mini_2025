@@ -301,6 +301,7 @@ export class CommonService {
       let alreayExist = filterType[0].data.filter((i: any) => i.text == filter.filterName.text)
       if (alreayExist.length == 0) {
         filterType[0].data.push(filter.filterName)
+        filterType[0].data.sort((a:any,b:any)=>a.id -b.id)
         return filterType[0].data.sort((a: any, b: any) => a.index - b.index)
       }
       else {
@@ -376,15 +377,15 @@ export class CommonService {
 
       switch (type) {
         case 'Language':
-          filteredData = data.map((i: any) => ({ ...i, text: i.languageName, selected: false }));
+          filteredData = data.map((i: any) => ({ ...i, text: i.languageName, selected: false,id:i.languageId }));
           break;
 
         case 'Genres':
-          filteredData = data.map((i: any) => ({ ...i, text: i.genresName, selected: false }));
+          filteredData = data.map((i: any) => ({ ...i, text: i.genresName, selected: false,id:i.genresId }));
           break;
 
         case 'Formats':
-          filteredData = data.map((i: any) => ({ ...i, text: i.formatName, selected: false }));
+          filteredData = data.map((i: any) => ({ ...i, text: i.formatName, selected: false ,id:i.formatId}));
           break;
 
         case 'Date':
