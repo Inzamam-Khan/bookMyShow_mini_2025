@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 @Component({
@@ -10,7 +10,7 @@ import { CommonService } from '../../../services/common.service';
   styleUrl: './filter-accordion.component.scss',
 })
 export class FilterAccordionComponent {
-  @Input() filters: any = []
+  // @Input() filters: any = []
   @Output() filterEvent = new EventEmitter<string>()
   filterShowButtons: boolean = true;
   selectedCategory: any;
@@ -27,16 +27,17 @@ export class FilterAccordionComponent {
     
 
   this.filtersArray=this.commonService.filtersSignal()
-console.log(this.filtersArray)
+console.log(this.filtersArray,'filters aarray signal in accordina')
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-  if (changes['filters']) {
-    this.filtersArray=this.commonService.formatFilters(this.filters)
+//   ngOnChanges(changes: SimpleChanges) {
+// //   if (changes['filters']) {
+// //     this.filtersArray=this.commonService.formatFilters(this.filters)
+// // console.log('topFiltersarray',this.commonService.topFiltersArray());
+// // console.log('selected filters array',this.commonService.selectedFiltersSignal());
 
-
-    } 
-}
+// //     } 
+// }
 
   handleNavigate() {
     let newUrl = `/${this.commonService._selectCity()}/cinemas`

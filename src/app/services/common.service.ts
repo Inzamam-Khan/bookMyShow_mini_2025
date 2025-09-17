@@ -2,58 +2,18 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { filters, selectedFilters } from '../../../db';
+// import { filters, selectedFilters } from '../../../db';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  filters: any[] = filters
-  select: any[] = selectedFilters
+  // filters: any[] = filters
+  // select: any[] = selectedFilters
   baseUrl = environment.baseUrl
   // ----------------------------------------------
 
-  // topFiltersArray = signal<any>(
-  //   this.formatFilters([
-  //     {
-  //       type:'Language',
-  //       data:[ {
-  //       languageId: 1,
-  //       languageName: "Hindi"
-  //     },
-  //     {
-  //       languageId: 4,
-  //       languageName: "Telugu"
-  //     },
-  //     {
-  //       languageId: 2,
-  //       languageName: "English"
-  //     },
-  //     {
-  //       languageId: 5,
-  //       languageName: "Gujarati"
-  //     },
-  //     {
-  //       languageId: 3,
-  //       languageName: "Japanese"
-  //     },
-  //     {
-  //       languageId: 7,
-  //       languageName: "Tamil"
-  //     },
-  //     {
-  //       languageId: 9,
-  //       languageName: "Punjabi"
-  //     },
-  //     {
-  //       languageId: 6,
-  //       languageName: "Malayalam"
-  //     }]
-  //     }
-
-  //   ])
-  // )
 
 
 
@@ -64,149 +24,36 @@ export class CommonService {
         type: "Language",
         data: []
       },
+       {
+        type: "Genres",
+        data: []
+      },
       {
         type: "Formats",
         data: []
       },
-      {
-        type: "Genres",
-        data: []
-      },
+     
 
     ])
 
-  filtersSignal = signal<any[]>(
-    this.formatFilters(
-      [
-        {
 
-          type: "Language",
-          data: [
-            {
-              languageId: 1,
-              languageName: "Hindi"
-            },
-            {
-              languageId: 4,
-              languageName: "Telugu"
-            },
-            {
-              languageId: 2,
-              languageName: "English"
-            },
-            {
-              languageId: 5,
-              languageName: "Gujarati"
-            },
-            {
-              languageId: 3,
-              languageName: "Japanese"
-            },
-            {
-              languageId: 7,
-              languageName: "Tamil"
-            },
-            {
-              languageId: 9,
-              languageName: "Punjabi"
-            },
-            {
-              languageId: 6,
-              languageName: "Malayalam"
-            }
-          ]
-        },
-        {
-          type: "Formats",
-          data: [
-            {
-              "formatId": 1,
-              "formatName": "2D"
-            },
-            {
-              "formatId": 2,
-              "formatName": "3D"
-            },
-            {
-              "formatId": 3,
-              "formatName": "4DX"
-            },
-            {
-              "formatId": 4,
-              "formatName": "MX4D"
-            },
-            {
-              "formatId": 5,
-              "formatName": "2D SCREEN X"
-            },
-            {
-              "formatId": 6,
-              "formatName": "IMAX 2D"
-            }
-          ]
-        },
-        {
 
-          type: "Genres",
-          data: [
-            {
-              "genresId": 10,
-              "genresName": "Crime"
-            },
-            {
-              "genresId": 21,
-              "genresName": "Biography"
-            },
-            {
-              "genresId": 2,
-              "genresName": "Comedy"
-            },
-            {
-              "genresId": 6,
-              "genresName": "Fantasy"
-            },
-            {
-              "genresId": 3,
-              "genresName": "Action"
-            },
-            {
-              "genresId": 14,
-              "genresName": "Mystery"
-            },
-            {
-              "genresId": 12,
-              "genresName": "Historical"
-            },
-            {
-              "genresId": 1,
-              "genresName": "Drama"
-            },
-            {
-              "genresId": 4,
-              "genresName": "Thriller"
-            },
-            {
-              "genresId": 5,
-              "genresName": "Family"
-            },
-            {
-              "genresId": 23,
-              "genresName": "Adventure"
-            }
-          ]
-        }
+  filtersSignal = signal<any[]>([])
 
-      ])
-  )
+  setFiltersSignal(filters: any) {
+    let modifiedFilters = this.formatFilters(filters)
+    this.filtersSignal.set(modifiedFilters)
+  }
 
 
   topFiltersArray = computed(() =>
     this.filtersSignal()
-      .map(group => ({
+      .filter(group =>
+      ({
         type: group.type,
         data: group.data.filter((item: any) => !item.selected)  // only selected ones
       }))
-      .filter(group => group.data.length > 0) // remove empty groups
+      .filter(group => group.data.length > 0)
   );
 
 
@@ -301,7 +148,7 @@ export class CommonService {
       let alreayExist = filterType[0].data.filter((i: any) => i.text == filter.filterName.text)
       if (alreayExist.length == 0) {
         filterType[0].data.push(filter.filterName)
-        filterType[0].data.sort((a:any,b:any)=>a.id -b.id)
+        filterType[0].data.sort((a: any, b: any) => a.id - b.id)
         return filterType[0].data.sort((a: any, b: any) => a.index - b.index)
       }
       else {
@@ -377,15 +224,15 @@ export class CommonService {
 
       switch (type) {
         case 'Language':
-          filteredData = data.map((i: any) => ({ ...i, text: i.languageName, selected: false,id:i.languageId }));
+          filteredData = data.map((i: any) => ({ ...i, text: i.languageName, selected: false, id: i.languageId }));
           break;
 
         case 'Genres':
-          filteredData = data.map((i: any) => ({ ...i, text: i.genresName, selected: false,id:i.genresId }));
+          filteredData = data.map((i: any) => ({ ...i, text: i.genresName, selected: false, id: i.genresId }));
           break;
 
         case 'Formats':
-          filteredData = data.map((i: any) => ({ ...i, text: i.formatName, selected: false ,id:i.formatId}));
+          filteredData = data.map((i: any) => ({ ...i, text: i.formatName, selected: false, id: i.formatId }));
           break;
 
         case 'Date':

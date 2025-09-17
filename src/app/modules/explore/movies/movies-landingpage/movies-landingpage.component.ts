@@ -18,7 +18,7 @@ export class MovieLandingPageComponent implements OnDestroy {
   topFiltersArray!: any[]
   filtersArray: any[] = [] 
   originalMovies = movies;
-  filters: any[] = this.filtersArray
+  // filters: any[] = []
   select: any[] = selectedFilters
 
   constructor(public commonService: CommonService, public router: Router, private movieService: MovieService, private toastr: ToastrService) {
@@ -35,10 +35,6 @@ export class MovieLandingPageComponent implements OnDestroy {
    */
 
 
-  test(){
-// console.log(this.commonService.selectedFiltersSignal())  
-console.log(this.commonService.topFiltersArray())  
-  }
   ngOnInit(): void {
 
 // console.log(this.commonService.topFiltersArray())
@@ -47,14 +43,16 @@ console.log(this.commonService.topFiltersArray())
 
 
     this.setFilter()
-    this.movieService.getFilters('languages').subscribe({
-      next: (res) => {
-        this.topFiltersArray = res.data
-      },
-      error: (res) => {
-        this.toastr.error(res.message);
-      }
-    })
+    // this.movieService.getFilters('languages').subscribe({
+    //   next: (res) => {
+    //     this.topFiltersArray = res.data
+    //   },
+    //   error: (res) => {
+    //     this.toastr.error(res.message);
+    //   }
+    // })
+
+
     this.movieService.getAllMovies().subscribe({
       next: (res) => {
         this.dummyMoviesdata = res.data
@@ -72,7 +70,11 @@ console.log(this.commonService.topFiltersArray())
       this.movieService.getFilters('formats')
     ]).subscribe({
       next: ([languages, genres, formats]) => {
-        this.filters = [{ type: 'Language', data: languages.data }, { type: 'Genres', data: genres.data }, { type: 'Formats', data: formats.data }];
+        let filters = [{ type: 'Language', data: languages.data }, { type: 'Genres', data: genres.data }, { type: 'Formats', data: formats.data }];
+
+        this.commonService.setFiltersSignal(filters)
+
+        // this.filters=this.commonService.filtersSignal()
       },
       error: (res) => {
         this.toastr.error(res.message);
@@ -88,6 +90,6 @@ console.log(this.commonService.topFiltersArray())
 */
 
   ngOnDestroy(): void {
-    this.commonService.resetfilterAccordian(this.filters)
+    this.commonService.resetfilterAccordian(this.commonService.filtersSignal())
   }
 }
