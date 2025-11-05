@@ -986,21 +986,19 @@ export class CreateContentComponent implements OnInit, AfterViewInit {
     }
   }
 
-  removeCastControl(_castControls: FormArray, controlId: number) {
+  removeCastControl(_castControls: FormArray, index: number) {
     let castControls = (this.eventShowForm.get('cast') as FormArray);
     if (castControls.length == 1) return;
     else {
-      let index = castControls?.controls.findIndex((ctrl: any) => ctrl.get('id')?.value == controlId)
       castControls.removeAt(index)
     }
   }
 
-  removeCrewControl(_crewControls: FormArray, controlId: number) {
+  removeCrewControl(_crewControls: FormArray, index: number) {
 
     let crewControls = (this.eventShowForm.get('crew') as FormArray);
     if (crewControls.length == 1) return;
     else {
-      let index = crewControls?.controls.findIndex((ctrl: any) => ctrl.get('id')?.value == controlId)
       crewControls.removeAt(index)
     }
   }

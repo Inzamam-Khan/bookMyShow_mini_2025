@@ -665,7 +665,7 @@
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-danger" type="button" [disabled]="castControls.length==1"
-                        (click)="removeCastControl(castControls,c.get('id')?.value)">✕</button>
+                        (click)="removeCastControl(castControls,$index)">✕</button>
                 </div>
             </div>
             }
@@ -701,7 +701,7 @@
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-danger" type="button" [disabled]="crewControls.length==1"
-                        (click)="removeCrewControl(crewControls,m.get('id')?.value)">✕</button>
+                        (click)="removeCrewControl(crewControls,$index)">✕</button>
                 </div>
             </div>
             }
